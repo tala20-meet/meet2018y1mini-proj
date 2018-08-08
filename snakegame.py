@@ -117,6 +117,7 @@ def move_snake():
     my_pos=snake.pos() 
     pos_list.append(my_pos)
     new_stamp = snake.stamp()
+    print("Value of new_stamp: " + str(new_stamp))
     stamp_list.append(new_stamp)
     ######## SPECIAL PLACE - Remember it for Part 5
     #pop zeroth element in pos_list to get rid of last the last 
@@ -124,6 +125,7 @@ def move_snake():
     old_stamp = stamp_list.pop(0)
     snake.clearstamp(old_stamp)
     pos_list.pop(0)
+    print("Position list: " + str(pos_list))
     
     #Add new lines to the end of the function
     #Grab position of snake
@@ -154,26 +156,24 @@ turtle.register_shape("trash.gif")
                       # in the same folder as this Python script
 
 food = turtle.clone()
-food.shape("trash.gif") 
+food.shape("trash.gif")
 
 #Locations of food
 food_pos = [(100,100), (-100,100), (-100,-100), (100,-100)]
 
 food_stamps = []
+food.hideturtle()
 
 # Write code that:
-food.goto(food_pos)#1. moves the food turtle to each food position
+#1. moves the food turtle to each food position
 #2. stamps the food turtle at that location
 #3. saves the stamp by appending it to the food_stamps list using
 # food_stamps.append()
-food.hideturtle#4. Don’t forget to hide the food turtle!
-#for this_food_pos in food_pos :
 
-    
-    
-   
-
-
+for this_pos in food_pos:
+    food.goto(this_pos)
+    stamp_ID=food.stamp()
+    food_stamps.append(stamp_ID)
 
     
 
