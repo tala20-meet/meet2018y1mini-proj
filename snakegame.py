@@ -5,9 +5,19 @@ turtle.tracer(1,0) #This helps the turtle move more smoothly
 
 SIZE_X=800
 SIZE_Y=500
-turtle.setup(SIZE_X, SIZE_Y) #Curious? It's the turtle window  
-                             #size. 
-turtle.penup()
+turtle.setup(1000, 1000) #Curious? It's the turtle window  
+turtle.penup()                         #size.
+
+bord = turtle.clone()
+bord.pensize("20")
+bord.penup()
+bord.goto(-410,270)
+bord.pendown()
+bord.goto(410,270)
+bord.goto(410,-270)
+bord.goto(-410,-270)
+bord.goto(-410,270)
+
 
 SQUARE_SIZE = 20
 START_LENGTH = 5
@@ -15,8 +25,8 @@ START_LENGTH = 5
 #Initialize lists
 pos_list = []
 stamp_list = []
-food_pos = []
-food_stamps = []
+#food_pos = []
+#food_stamps = []
 
 #Set up positions (x,y) of boxes that make up the snake
 snake = turtle.clone()
@@ -58,7 +68,7 @@ UP_ARROW = "Up" #Make sure you pay attention to upper and lower
 LEFT_ARROW = "Left" #Pay attention to upper and lower case
 DOWN_ARROW = "Down" #Pay attention to upper and lower case
 RIGHT_ARROW = "Right" #Pay attention to upper and lower case
-TIME_STEP = 100 #Update snake position after this many 
+TIME_STEP = 1000 #Update snake position after this many 
                     #milliseconds
 SPACEBAR = "space" # Careful, it's not supposed to be capitalized!
 
@@ -99,6 +109,8 @@ turtle.onkeypress(down,DOWN_ARROW)
 turtle.onkeypress(right,RIGHT_ARROW)
 turtle.onkeypress(left,LEFT_ARROW)
 
+
+
 turtle.listen()
 def make_food():
     min_x=-int(SIZE_X/2/SQUARE_SIZE)+1
@@ -111,7 +123,11 @@ def make_food():
     
     food.goto(food_x,food_y)
     food_pos.append((food_x,food_y))
-    food_stamps.append(food.stamp())
+    
+    foo = food.stamp()
+    print("special stamp", foo)
+    food_stamps.append(foo)
+    print("appended", food_stamps)
     
 
 
@@ -137,20 +153,24 @@ def move_snake():
     pos_list.append(my_pos)
     new_stamp = snake.stamp()
     stamp_list.append(new_stamp)
-    global food_stamps,food_pos
+  #  global food_stamps,food_pos
     if snake.pos() in food_pos:
+        print(food_pos, food_stamps)
         food_ind=food_pos.index(snake.pos()) #What does this do?
+        print(food_ind)
         food.clearstamp(food_stamps[food_ind]) #Remove eaten food #stamp
         food_pos.pop(food_ind) #Remove eaten food position
-        food_stamps.pop(food_ind) #Remove eaten food stamp
+        food_stamps.pop(food_ind)#Remove eaten food stamp
         print("You have eaten the food!")
+        
+    else:
+        old_stamp = stamp_list.pop(0)
+        snake.clearstamp(old_stamp)
+        pos_list.pop(0)
         
     if snake.pos() in pos_list[0:-1]:
         quit()
 
-    old_stamp = stamp_list.pop(0)
-    snake.clearstamp(old_stamp)
-    pos_list.pop(0)
     
     #Add new lines to the end of the function
     #Grab position of snake
@@ -172,7 +192,7 @@ def move_snake():
     if new_y_pos <= DOWN_EDGE:
         print("You hit the down edge! Game over!")
         quit()
-    if len(food_stamps) <= 6 :
+    if len(food_stamps) <= 3 :
         make_food()
         
 
@@ -180,11 +200,10 @@ def move_snake():
    
     turtle.ontimer(move_snake,TIME_STEP)
     
-move_snake()
+
 
 #Locations of food
-food_pos = [(100,100), (-100,100), (-100,-100), (100,-100)]
-
+food_pos =[(100,100), (-100,100), (-100,-100), (100,-100)]
 food_stamps = []
 food.hideturtle()
 
@@ -197,8 +216,10 @@ food.hideturtle()
 for this_pos in food_pos:
     food.goto(this_pos)
     stamp_ID=food.stamp()
+    print("StampID",stamp_ID)
     food_stamps.append(stamp_ID)
-    
+
+move_snake()   
 
     
 
