@@ -9,7 +9,7 @@ turtle.setup(1000, 1000) #Curious? It's the turtle window
 turtle.penup()                         #size.
 
 bord = turtle.clone()
-bord.pensize("20")
+bord.pensize("10")
 bord.penup()
 bord.goto(-410,270)
 bord.pendown()
@@ -68,7 +68,7 @@ UP_ARROW = "Up" #Make sure you pay attention to upper and lower
 LEFT_ARROW = "Left" #Pay attention to upper and lower case
 DOWN_ARROW = "Down" #Pay attention to upper and lower case
 RIGHT_ARROW = "Right" #Pay attention to upper and lower case
-TIME_STEP = 1000 #Update snake position after this many 
+TIME_STEP = 100#Update snake position after this many 
                     #milliseconds
 SPACEBAR = "space" # Careful, it's not supposed to be capitalized!
 
